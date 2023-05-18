@@ -1,8 +1,9 @@
-from tkinter import Tk
-from tkinter.filedialog import askopenfilenames
-from PIL import Image
 import numpy as np
+from PIL import Image
 from tqdm import tqdm
+from tkinter import Tk
+from os.path import dirname
+from tkinter.filedialog import askopenfilenames
 
 root = Tk()
 root.withdraw()
@@ -24,7 +25,8 @@ for fil in tqdm(files):
 means = means.astype(np.float64)
 means /= len(files)
 means = means.astype(np.uint8)
-Image.fromarray(means).save("output.png")
+output_dir = dirname(files[0])
+Image.fromarray(means).save(output_dir + '/output.png')
 
 root.quit()
 root.destroy()
