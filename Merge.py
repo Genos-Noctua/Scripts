@@ -18,23 +18,22 @@ def summer(package):
     return package
 
 if __name__ == '__main__':
+    pros = mp.cpu_count()
     files = askopenfilenames()
     start_time = time.time()
     max_size = (0, 0)
     with Image.open(files[0]) as img: max_size = img.size
-    factory = Factory((summer,), processes=4, pressure=10)
-    lists = [[] for _ in range(4)]
+    factory = Factory((summer,), processes=pros, pressure=100)
+    lists = [[] for _ in range(pros)]
     for x in range(len(files)):
-        lists[x%4].append(files[x])
-    for x in range(4):
+        lists[x%pros].append(files[x])
+    for x in range(pros):
         pack = factory.get_pack()
         pack.special = {'imgs': lists[x], 'mean': np.zeros(max_size[::-1] + (3,), dtype=np.uint64)}
         factory.add(pack)
     x = 0
     mean = np.zeros(max_size[::-1] + (3,), dtype=np.uint64)
-    while x < 4:
-        while factory.drain.empty():
-            time.sleep(1)
+    while x < pros:
         pack = factory.drain.get()
         mean += pack.special['mean']
         x+=1
