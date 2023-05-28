@@ -1,5 +1,5 @@
 from os import path, listdir, mkdir, rename
-import tkinter.filedialog
+import tkinter.filedialog, tqdm
 from os.path import isfile, join, isdir
 
 music_dir = tkinter.filedialog.askdirectory()
@@ -15,7 +15,7 @@ holes = list()
 for x in range(1, length):
     if not isfile(join(music_dir, str(str(x) + ".mp3"))):
         holes.append(x)
-for x in range(len(holes)):
+for x in tqdm.tqdm(range(len(holes)), smoothing=0):
     rename(
         str(music_dir) + "/" + str(files[len(files) - 1]) + ".mp3",
         str(music_dir) + "/" + str(holes[len(holes) - 1]) + ".mp3",
