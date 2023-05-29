@@ -1,5 +1,5 @@
 import os, shutil, tkinter.filedialog, tqdm, hashlib
-
+#Can be used to search for bit-for-bit identical files and separate them from the main set
 src_dir = tkinter.filedialog.askdirectory()
 temp_dir = os.path.join(src_dir, 'Duplicates')
 os.makedirs(temp_dir, exist_ok=True)
