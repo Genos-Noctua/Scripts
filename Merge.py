@@ -37,6 +37,7 @@ if __name__ == '__main__':
         pack = factory.drain.get()
         mean += pack.special['mean']
         x+=1
+    factory.kill()
     mean = mean.astype(np.float64)
     mean /= len(files)
     mean = mean.astype(np.uint8)
