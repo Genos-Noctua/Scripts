@@ -1,7 +1,7 @@
 import numpy as np
 import time
 from PIL import Image
-from factory import *
+from Factory.factory import *
 from os.path import dirname
 from tkinter.filedialog import askopenfilenames
 
