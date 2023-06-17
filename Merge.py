@@ -32,9 +32,9 @@ if __name__ == '__main__':
         factory.add(pack)
     del(lists)
     x = 1
-    mean = factory.drain.get().payload['mean']
+    mean = factory.take().payload['mean']
     while x < pros:
-        mean += factory.drain.get().payload['mean']
+        mean += factory.take().payload['mean']
         x+=1
     factory.kill()
     mean /= len(files)
