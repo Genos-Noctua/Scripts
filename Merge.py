@@ -13,7 +13,7 @@ def summer(package):
         with Image.open(img) as img: 
             mean += np.array(img).astype(np.float64) 
     package.special['mean'] = mean
-    package.dst = -1
+    package.dst = 'out'
     return package
 
 if __name__ == '__main__':
