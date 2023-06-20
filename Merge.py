@@ -8,7 +8,7 @@ from tkinter.filedialog import askopenfilenames
 def summer(package):
     list = package.payload['imgs']
     mean = package.payload['mean']
-    for x in range(len(list)):
+    for _ in range(len(list)):
         img = list.pop()
         with Image.open(img) as img: 
             mean += np.array(img).astype(np.float64) 
