@@ -17,12 +17,12 @@ def summer(package):
     return package
 
 if __name__ == '__main__':
-    pros = mp.cpu_count()
     files = askopenfilenames()
     start_time = time.time()
     max_size = (0, 0)
     with Image.open(files[0]) as img: max_size = img.size
-    factory = Factory((summer,), processes=pros, pressure=100)
+    factory = Factory((summer,))
+    pros = factory.processes
     lists = [[] for _ in range(pros)]
     for x in range(len(files)):
         lists[x%pros].append(files[x])
