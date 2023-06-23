@@ -1,5 +1,6 @@
 import numpy as np
 import time
+from tqdm import tqdm
 from PIL import Image
 from Factory.factory import *
 from os.path import dirname
@@ -8,7 +9,8 @@ from tkinter.filedialog import askopenfilenames
 def summer(package):
     list = package.payload['imgs']
     mean = package.payload['mean']
-    for _ in range(len(list)):
+    id = package.payload['id']
+    for _ in tqdm(range(len(list)), smoothing=0, disable=(id!=0)):
         img = list.pop()
         with Image.open(img) as img: 
             mean += np.array(img).astype(np.float64) 
@@ -28,7 +30,7 @@ if __name__ == '__main__':
         lists[x%pros].append(files[x])
     for x in range(pros):
         pack = factory.get_pack()
-        pack.payload = {'imgs': lists[x], 'mean': np.zeros(max_size[::-1] + (3,), dtype=np.float64)}
+        pack.payload = {'id': x, 'imgs': lists[x], 'mean': np.zeros(max_size[::-1] + (3,), dtype=np.float64)}
         factory.add(pack)
     del(lists)
     x = 1
