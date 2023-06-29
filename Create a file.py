@@ -21,7 +21,7 @@ size=float(size[:-1])
 if mode>1:
   for x in range(mode-1):
     size*=1024
-  for x in tqdm(range(1024)):
+  for x in tqdm(range(1024), smoothing=0):
     print(string*int(size), file=f, end='')
 else:
   print(string*int(size), file=f, end='')
