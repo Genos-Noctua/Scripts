@@ -29,7 +29,7 @@ if __name__ == '__main__':
     for x in range(len(files)):
         lists[x%pros].append(files[x])
     for x in range(pros):
-        pack = factory.get_pack()
+        pack = Factory.get_pack()
         pack.payload = {'id': x, 'imgs': lists[x], 'mean': np.zeros(max_size[::-1] + (3,), dtype=np.float64)}
         factory.add(pack)
     del(lists)
