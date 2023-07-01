@@ -7,14 +7,14 @@ from os.path import dirname
 from tkinter.filedialog import askopenfilenames
 
 def summer(package):
-    list = package.payload['imgs']
-    mean = package.payload['mean']
-    id = package.payload['id']
+    list = package.con['imgs']
+    mean = package.con['mean']
+    id = package.con['id']
     for _ in tqdm(range(len(list)), smoothing=0, disable=(id!=0)):
         img = list.pop()
         with Image.open(img) as img: 
             mean += np.array(img).astype(np.float64) 
-    package.payload['mean'] = mean
+    package.con['mean'] = mean
     package.dst = 'out'
     return package
 
@@ -30,13 +30,13 @@ if __name__ == '__main__':
         lists[x%pros].append(files[x])
     for x in range(pros):
         pack = Factory.get_pack()
-        pack.payload = {'id': x, 'imgs': lists[x], 'mean': np.zeros(max_size[::-1] + (3,), dtype=np.float64)}
+        pack.con = {'id': x, 'imgs': lists[x], 'mean': np.zeros(max_size[::-1] + (3,), dtype=np.float64)}
         factory.add(pack)
     del(lists)
     x = 1
-    mean = factory.take().payload['mean']
+    mean = factory.take().con['mean']
     while x < pros:
-        mean += factory.take().payload['mean']
+        mean += factory.take().con['mean']
         x+=1
     factory.kill()
     mean /= len(files)
